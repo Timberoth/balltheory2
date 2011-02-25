@@ -2,6 +2,7 @@ var baseFootAudioVolume = 1.0;
 var soundEffectPitchRandomness = 0.05;
 
 function OnTriggerEnter (other : Collider) {
+/*
 	var collisionParticleEffect : CollisionParticleEffect = other.GetComponent(CollisionParticleEffect);
 	
 	if (collisionParticleEffect) {
@@ -16,6 +17,7 @@ function OnTriggerEnter (other : Collider) {
 		audio.pitch = Random.Range(1.0 - soundEffectPitchRandomness, 1.0 + soundEffectPitchRandomness);
 		audio.Play();		
 	}
+	*/
 }
 
 function Reset() {

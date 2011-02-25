@@ -124,6 +124,8 @@ function Update () {
 
 // The OnCollisionEnter () function only serves to provide special effects in this case.
 function OnCollisionEnter (collision : Collision) {
+
+/*
 	// Get the component "CollisionSoundEffect" of the object we collided with.
 	// The platforms in this tutorial have a CollisionSoundEffect component.
 	var collisionSoundEffect : CollisionSoundEffect = collision.gameObject.GetComponent (CollisionSoundEffect);
@@ -135,6 +137,7 @@ function OnCollisionEnter (collision : Collision) {
 		audio.volume = collisionSoundEffect.volumeModifier * collision.relativeVelocity.sqrMagnitude * specialEffects.collisionVolume;
 		audio.Play ();		
 	}
+*/
 }
 
 // The Reset () function is called by Unity when you first add a script, and when you choose Reset on the
