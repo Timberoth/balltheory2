@@ -1,14 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\SpringBoard.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\Ball\Ball.cs">
     <Files>
-      <File FileName="Assets\Scripts\Input\Draggable.cs" Line="53" Column="4" />
+      <File FileName="Assets\Scripts\Input\Draggable.cs" Line="15" Column="2" />
       <File FileName="Assets\Scripts\2D\Ball\BallFinish.cs" Line="21" Column="3" />
-      <File FileName="Assets\Scripts\2D\DeathTrigger.js" Line="5" Column="40" />
-      <File FileName="Assets\Scripts\2D\Ball\Ball.cs" Line="56" Column="8" />
-      <File FileName="Assets\Scripts\2D\Character Controls\PlatformerController.js" Line="118" Column="1" />
-      <File FileName="Assets\Scripts\2D\Ball\BallStart.cs" Line="18" Column="5" />
-      <File FileName="Assets\Scripts\2D\SpringBoard.cs" Line="54" Column="32" />
+      <File FileName="Assets\Scripts\2D\Ball\Ball.cs" Line="80" Column="1" />
+      <File FileName="Assets\Scripts\2D\SpringBoard.cs" Line="44" Column="8" />
+      <File FileName="Assets\Scripts\Effects\CollisionSoundEffect.cs" Line="13" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
