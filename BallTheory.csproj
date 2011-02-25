@@ -51,6 +51,9 @@
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Editor\TwoDHelper.js" />
+     <Compile Include="Assets\Scripts\2D\Ball\Ball.cs" />
+     <Compile Include="Assets\Scripts\2D\Ball\BallFinish.cs" />
+     <Compile Include="Assets\Scripts\2D\Ball\BallStart.cs" />
      <None Include="Assets\Scripts\2D\Camera\CameraFocus.js" />
      <None Include="Assets\Scripts\2D\Camera\CameraScrolling.js" />
      <None Include="Assets\Scripts\2D\Camera\CameraTargetAttributes.js" />
@@ -64,6 +67,7 @@
      <None Include="Assets\Scripts\2D\LevelAttributes.js" />
      <None Include="Assets\Scripts\2D\PlatformTarget.js" />
      <None Include="Assets\Scripts\2D\SpawnPoint.js" />
+     <Compile Include="Assets\Scripts\2D\SpringBoard.cs" />
      <None Include="Assets\Scripts\Effects\CollisionParticleEffect.js" />
      <None Include="Assets\Scripts\Effects\CollisionSoundEffect.js" />
      <None Include="Assets\Scripts\Effects\Foot.js" />

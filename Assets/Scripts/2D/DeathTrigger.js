@@ -2,7 +2,7 @@
 // Whoever enters the DeathTrigger gets an OnDeath message sent to them.
 // They don't have to react to it.
 function OnTriggerEnter (other : Collider) {
-	other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
+	other.gameObject.SendMessage ("Respawn", SendMessageOptions.DontRequireReceiver);
 }
 
 // Helper function: Draw an icon in the sceneview so this object gets easier to pick

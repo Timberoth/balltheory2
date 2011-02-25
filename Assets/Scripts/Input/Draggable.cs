@@ -31,13 +31,11 @@ public class Draggable : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter ()
-	{		
-		print("CollisionEnter");			
+	{				
 	}	
 	
 	void OnCollisionExit ()
-	{		
-		print("CollisionExit");			
+	{				
 	}		
 
 	void Reset() 
