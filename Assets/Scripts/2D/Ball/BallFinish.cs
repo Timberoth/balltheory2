@@ -31,8 +31,8 @@ public class BallFinish : MonoBehaviour {
 		// Wait for 1 second
         yield return new WaitForSeconds(0.5f);
 		
-		// Kill the ball after a half a second		
-		//other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
-		other.gameObject.SendMessage ("Respawn", SendMessageOptions.DontRequireReceiver);
+		// Kill the ball after a half a second
+		if( other.gameObject != null )
+			other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);		
     }
 }
