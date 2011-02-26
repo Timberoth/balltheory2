@@ -3,19 +3,22 @@ using System.Collections;
 
 public class BallStart : MonoBehaviour {
 	
-	/*
+	public GameObject ballObject = null;
+	
 	// Use this for initialization
 	void Start () 
-	{
-		
-	}
-	
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	*/	
+	{		
+		if( ballObject != null )
+		{
+			// Create ball object
+			Instantiate( ballObject, transform.position, Quaternion.identity );					
+		}
+		else
+		{
+			// This means that the BallStart object has not been added to the scene.
+			print("ERROR Ball Object has not been set.");
+		}		
+	}		
 	
 	void OnDrawGizmos() 
 	{
