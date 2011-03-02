@@ -1,15 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\Gizmos\Adder.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\Gizmos\Gizmo.cs">
     <Files>
-      <File FileName="Assets\Scripts\Input\Draggable.cs" Line="69" Column="5" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Gizmo.cs" Line="9" Column="2" />
+      <File FileName="Assets\Scripts\Input\Draggable.cs" Line="19" Column="16" />
       <File FileName="Assets\Scripts\2D\Ball\BallFinish.cs" Line="35" Column="33" />
       <File FileName="Assets\Scripts\2D\Ball\Ball.cs" Line="16" Column="4" />
       <File FileName="Assets\Scripts\2D\SpringBoard.cs" Line="31" Column="10" />
-      <File FileName="Assets\Scripts\Effects\CollisionSoundEffect.cs" Line="13" Column="1" />
-      <File FileName="Assets\Scripts\2D\Gizmos\Adder.cs" Line="59" Column="36" />
       <File FileName="Assets\Scripts\2D\Ball\BallStart.cs" Line="21" Column="4" />
-      <File FileName="Assets\Scripts\2D\DeathTrigger.js" Line="5" Column="40" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
