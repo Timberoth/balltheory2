@@ -7,10 +7,14 @@ public class Draggable : MonoBehaviour {
 	
 	private bool mouseHeld;
 	
+	// Keep track of the offset from the object's pivot to the where the mouse is clicked.
+	// This will prevent the object's pivot from jumping to the mouse's position when dragging.
+	private Vector2 mouseOffset;
+	
 	// Use this for initialization
 	void Start ()
 	{
-		mouseHeld = false;	
+		mouseHeld = false;		
 	}
 	
 	// Update is called once per frame
@@ -24,6 +28,8 @@ public class Draggable : MonoBehaviour {
 			
 			// Make sure to keep everything in 2D
 			worldPosition.z = 0.0f;
+			worldPosition.x += mouseOffset.x;
+			worldPosition.y += mouseOffset.y;
 			transform.position = worldPosition;
 			
 			// Move particle Effect
@@ -49,8 +55,14 @@ public class Draggable : MonoBehaviour {
 		bool mouseDown = Input.GetMouseButtonDown(0);
 		if( mouseDown && !mouseHeld )
 		{
-			mouseHeld = true;
-			print("On mouse down");
+			// Calculate mouse offset.
+			Camera mainCamera = UnityEngine.Camera.mainCamera;
+			Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+			
+			mouseOffset.x = gameObject.transform.position.x - worldPosition.x;
+			mouseOffset.y = gameObject.transform.position.y - worldPosition.y;
+			
+			mouseHeld = true;			
 			
 			// Start particle effect
 		}
@@ -61,8 +73,7 @@ public class Draggable : MonoBehaviour {
 		bool mouseUp = Input.GetMouseButtonUp(0);
 		if( mouseUp && mouseHeld )
 		{
-			mouseHeld = false;
-			print("On mouse up");
+			mouseHeld = false;			
 			
 			// End particle effect
 		}
