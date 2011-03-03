@@ -63,6 +63,7 @@
      <Compile Include="Assets\Scripts\2D\Gizmos\Adder.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Divider.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Gizmo.cs" />
+     <Compile Include="Assets\Scripts\2D\Gizmos\ModifierBox.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Modulus.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Multiplier.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Storage.cs" />
