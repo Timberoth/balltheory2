@@ -26,12 +26,17 @@ public class Gizmo : MonoBehaviour {
 	protected Vector3 gizmoSize;
 	
 	// Use this for initialization
-	void Start () 
+	protected void Start () 
 	{		
 		// Grab the ball game object ref from the "BallStart" component
 		GameObject ballStartObject = GameObject.Find("BallStart");
 		BallStart ballStartComponent = ballStartObject.GetComponent<BallStart>();
 		ballObject = ballStartComponent.ballObject;
+		
+		if( ballObject == null )
+		{
+			print("A gizmo was unable to get the BallObject reference");	
+		}
 		
 		// Do some one time calculations
 		
@@ -44,6 +49,8 @@ public class Gizmo : MonoBehaviour {
 		gizmoSize = gizmoCollider.bounds.size;
 					
 		// Play the idle animation.	
+		
+		UpdateBallCountText();
 	}
 	
 	
@@ -62,7 +69,19 @@ public class Gizmo : MonoBehaviour {
 			
 			// Destroy the ball that entered
 			Destroy( collision.gameObject );
+			
+			UpdateBallCountText();
 		}		
+	}	
+		
+	void UpdateBallCountText()
+	{
+		// Attempt to access the ball count and update it's value
+		TextMesh ballCount = gameObject.GetComponentInChildren<TextMesh>();
+		if( ballCount != null )
+		{
+			ballCount.text = ballCounter.ToString();
+		}	
 	}
 	
 	
@@ -94,15 +113,18 @@ public class Gizmo : MonoBehaviour {
 						
 		// Mark that we've begun processing.
 		processing = true;		
-		
-		// Do mathematical operation
-		DoMathematicalOperation();
-		
+						
 		// Play processing animation
 		
 		// Play particles
 		
 		// Play sounds
+		
+		
+		// Do mathematical operation
+		DoMathematicalOperation();		
+		UpdateBallCountText();		
+		
 		
 		// Wait for a little bit
         yield return new WaitForSeconds(0.5f);
@@ -111,11 +133,17 @@ public class Gizmo : MonoBehaviour {
 		ballSpawnPoint = gameObject.transform.position;					
 		ballSpawnPoint.y = ballSpawnPoint.y - 0.5f*ballSize.y - 0.5f*gizmoSize.y - 0.1f;			
 						
+		int ballsAtStart = ballCounter;
+		
 		// Begin spitting out the balls and decrement the ball counter until all the balls are gone.
-		for( int i = 0; i < ballCounter; i++ )
+		for( int i = 0; i < ballsAtStart; i++ )
 		{				
 			// Instantiate ball at the bottom of the gizmo			
 			Instantiate( ballObject, ballSpawnPoint, Quaternion.identity );
+			
+			ballCounter--;
+			
+			UpdateBallCountText();
 			
 			// Play sound
 			
@@ -126,7 +154,9 @@ public class Gizmo : MonoBehaviour {
 		}
 				
 		ballCounter = 0;
-		processing = false;			
+		processing = false;
+		
+		print("Done processing");
     }
 	
 	
