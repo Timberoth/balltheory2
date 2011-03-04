@@ -20,7 +20,6 @@ public class Multiplier : Gizmo {
 		
 	public override void DoMathematicalOperation()
 	{		
-		ballCounter *= modifierBox.modifier;
-		print(ballCounter);
+		ballCounter *= modifierBox.modifier;		
 	}	
 }

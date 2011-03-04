@@ -25,6 +25,13 @@ public class Gizmo : MonoBehaviour {
 	// Keep track of gizmo size
 	protected Vector3 gizmoSize;
 	
+	// This is the amount of time to wait before automatically starting the BeginProcessing function.
+	// This can be set through the Editor per Gizmo.
+	public float autoProcessingTimer = 1.0f;
+	
+	// This is the actual timer.
+	private float processingTimer = 0.0f;
+	
 	// Use this for initialization
 	protected void Start () 
 	{		
@@ -71,9 +78,30 @@ public class Gizmo : MonoBehaviour {
 			Destroy( collision.gameObject );
 			
 			UpdateBallCountText();
+			
+			// Reset the processing timer.
+			processingTimer = autoProcessingTimer;
 		}		
 	}	
 		
+	public virtual void Update()
+	{
+		if( processingTimer > 0.0f )
+		{
+			processingTimer -= Time.deltaTime;
+		}
+		else 
+		{
+			processingTimer = 0.0f;	
+			
+			// Kick off the processing if it hasn't already been started.
+			if( !processing )
+			{				
+				StartCoroutine(BeginProcessing());	
+			}				
+		}
+	}
+	
 	void UpdateBallCountText()
 	{
 		// Attempt to access the ball count and update it's value
@@ -154,20 +182,6 @@ public class Gizmo : MonoBehaviour {
 		}
 				
 		ballCounter = 0;
-		processing = false;
-		
-		print("Done processing");
-    }
-	
-	
-	void OnMouseUp()
-	{
-		bool mouseUp = Input.GetMouseButtonUp(0);
-		
-		if( mouseUp )
-		{			
-			// Begin processing.
-			StartCoroutine(BeginProcessing());			
-		}		
-	}		
+		processing = false;		
+    }	
 }
