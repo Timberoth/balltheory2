@@ -23,9 +23,7 @@ public class ModifierBox : MonoBehaviour {
 			// End particle effect
 			
 			// Increment counter
-			IncrementModifier();
-			
-			print(modifier);
+			IncrementModifier();					
 		}
 	}
 	
