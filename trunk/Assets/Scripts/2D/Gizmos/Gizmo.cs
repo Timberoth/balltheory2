@@ -36,9 +36,9 @@ public class Gizmo : MonoBehaviour {
 	protected void Start () 
 	{		
 		// Grab the ball game object ref from the "BallStart" component
-		GameObject ballStartObject = GameObject.Find("BallStart");
-		BallStart ballStartComponent = ballStartObject.GetComponent<BallStart>();
-		ballObject = ballStartComponent.ballObject;
+		GameObject gameManagerObject = GameObject.Find("GameManager");
+		GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
+		ballObject = gameManager.ballObject;
 		
 		if( ballObject == null )
 		{
@@ -58,6 +58,21 @@ public class Gizmo : MonoBehaviour {
 		// Play the idle animation.	
 		
 		UpdateBallCountText();
+	}
+	
+	
+	public void ResetGizmo()
+	{
+		ballCounter = 0;
+		processing = false;
+		processingTimer = 0.0f;
+		
+		// Attempt to access the ball count and update it's value
+		TextMesh ballCount = gameObject.GetComponentInChildren<TextMesh>();
+		if( ballCount != null )
+		{
+			ballCount.text = "0";
+		}
 	}
 	
 	
@@ -97,7 +112,7 @@ public class Gizmo : MonoBehaviour {
 			// Kick off the processing if it hasn't already been started.
 			if( !processing )
 			{				
-				StartCoroutine(BeginProcessing());	
+				StartCoroutine(BeginProcessing());
 			}				
 		}
 	}

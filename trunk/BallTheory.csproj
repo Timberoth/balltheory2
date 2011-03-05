@@ -81,6 +81,7 @@
      <None Include="Assets\Scripts\Effects\Foot.js" />
      <None Include="Assets\Scripts\Effects\SpecialEffectHandler.js" />
      <None Include="Assets\Scripts\Effects\StopEmittingAfterDelay.js" />
+     <Compile Include="Assets\Scripts\GUI\GameplayGUI.cs" />
      <Compile Include="Assets\Scripts\Input\Draggable.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
      <None Include="Assets\Shaders\Particle Add (Overlay).shader" />
