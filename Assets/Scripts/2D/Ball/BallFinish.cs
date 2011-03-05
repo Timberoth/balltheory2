@@ -2,34 +2,32 @@ using UnityEngine;
 using System.Collections;
 
 public class BallFinish : MonoBehaviour {
-	/*
-	// Use this for initialization
-	void Start () {
 	
+	// Keep a reference to the GameManager
+	GameManager gameManager;
+	
+	void Start()
+	{
+		GameObject gameManagerObject = GameObject.Find("GameManager");
+		gameManager = gameManagerObject.GetComponent<GameManager>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	*/
 		
 	void OnCollisionEnter ( Collision other )
-	{			
-		// End the level
-		StartCoroutine(EndLevel( other ));		
+	{					
+		StartCoroutine(DestroyBall( other ));
 	}
 	
-	IEnumerator EndLevel( Collision other )
+	IEnumerator DestroyBall( Collision other )
     {
-		// Calculate the score
+		// Increase ball count
+		gameManager.BallCollected();
 		
 		// Play particles
 		
 		// Play sounds
 		
 		// Wait for 1 second
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 		
 		// Kill the ball after a half a second
 		if( other.gameObject != null )
