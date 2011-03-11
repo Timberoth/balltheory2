@@ -117,7 +117,7 @@ public class Gizmo : MonoBehaviour {
 		}
 	}
 	
-	void UpdateBallCountText()
+	protected void UpdateBallCountText()
 	{
 		// Attempt to access the ball count and update it's value
 		TextMesh ballCount = gameObject.GetComponentInChildren<TextMesh>();
