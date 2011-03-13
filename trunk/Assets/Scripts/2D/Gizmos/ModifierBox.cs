@@ -15,6 +15,12 @@ public class ModifierBox : MonoBehaviour {
 		textMesh.text = modifier.ToString();
 	}
 	
+	public void Reset()
+	{
+		modifier = 1;
+		textMesh.text = modifier.ToString();
+	}
+	
 	void OnMouseUp()
 	{			
 		bool mouseUp = Input.GetMouseButtonUp(0);
