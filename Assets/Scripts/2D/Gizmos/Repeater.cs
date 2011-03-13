@@ -4,18 +4,49 @@ using System.Collections;
 public class Repeater : Gizmo {
 				
 	// Keep a reference to the ModifierBox
-	public ModifierBox modifierBox;	
+	public ModifierBox modifierBox;
+	
+	// Keep a reference to the RepeaterOutput object created.
+	private RepeaterOutput repeaterOutput;
 	
 	new void Start()
 	{
-		// Call Gizmo's start first.
+		// Call Gizmo's start function first.
 		base.Start();
+				
+		// Create the Repeater output object.
+		GameObject gameManagerObject = GameObject.Find("GameManager");
+		GameManager gameManager = gameManagerObject.GetComponent<GameManager>();		
+		if( gameManager.repeaterOutputObject == null )
+		{
+			print("A Repeater was unable to get the RepeaterOutput reference from the GameManager.");	
+		}
 		
+		Vector3 spawnPoint = gameObject.transform.position;
+		spawnPoint.y -= 1.5f;		
+		// Spawn the RepeaterOutput object and place it next to the Repeater.			
+		GameObject repeaterOutputObject = (GameObject)Instantiate( gameManager.repeaterOutputObject, spawnPoint, Quaternion.identity );
+		
+		// Grab the RepeaterOutput component.
+		repeaterOutput = repeaterOutputObject.GetComponent<RepeaterOutput>();
+		if( repeaterOutput == null )
+		{
+			print("A Repeater was unable to get the RepeaterOutput reference");	
+		}
+		repeaterOutput.SetBallObject( ballObject );
+		
+		
+		// Get the modifier box reference
 		modifierBox = GetComponentInChildren<ModifierBox>();
 		if( modifierBox == null )
 		{
 			print("[ERROR] This Multiplier does not have an child ModifierBox.");	
 		}
+		
+			
+		// For some reason we need to reset the modifier box text to 1 because it defaults to 0.
+		//modifierBox.Reset();
+				
 	}
 		
 	public override void DoMathematicalOperation()

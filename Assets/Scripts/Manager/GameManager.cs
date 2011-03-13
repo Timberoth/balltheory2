@@ -3,13 +3,15 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 	
+	// Set all the GameObject references through the GUI since Unity is stupidly set up this way.
 	public GameObject ballObject = null;
+	public GameObject repeaterOutputObject = null;
 	
 	// Number of balls that will spawn at the BallStart position
-	public int numberOfStartingBalls = 1;
+	public int startingBalls = 1;
 	
 	// Number of balls to complete this level.
-	public int requiredBallsForCompletion = 1;
+	public int requiredBalls = 1;
 
 	// Number of ball collected at the ball finish.
 	private int numberCollectedBalls = 0;
@@ -78,7 +80,7 @@ public class GameManager : MonoBehaviour {
 		if( ballObject != null )
 		{
 			// Create all the starting ball objects
-			for( int i = 0; i < numberOfStartingBalls; i++ )
+			for( int i = 0; i < startingBalls; i++ )
 			{
 				// Wait for a little before ball spawns
 				yield return new WaitForSeconds(0.5f);

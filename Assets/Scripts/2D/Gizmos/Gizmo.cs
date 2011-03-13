@@ -67,12 +67,14 @@ public class Gizmo : MonoBehaviour {
 		processing = false;
 		processingTimer = 0.0f;
 		
-		// Attempt to access the ball count and update it's value
-		TextMesh ballCount = gameObject.GetComponentInChildren<TextMesh>();
-		if( ballCount != null )
+		// Attempt to access the ball count and update it's value		
+		foreach( TextMesh textMesh in gameObject.GetComponentsInChildren<TextMesh>() )
 		{
-			ballCount.text = "0";
-		}
+			if( textMesh.tag == "BallCountText" )
+			{
+				textMesh.text = "0";	
+			}
+		}		
 	}
 	
 	
@@ -118,13 +120,15 @@ public class Gizmo : MonoBehaviour {
 	}
 	
 	protected void UpdateBallCountText()
-	{
-		// Attempt to access the ball count and update it's value
-		TextMesh ballCount = gameObject.GetComponentInChildren<TextMesh>();
-		if( ballCount != null )
+	{		
+		// Attempt to access the ball count and update it's value		
+		foreach( TextMesh textMesh in gameObject.GetComponentsInChildren<TextMesh>() )
 		{
-			ballCount.text = ballCounter.ToString();
-		}	
+			if( textMesh.tag == "BallCountText" )
+			{
+				textMesh.text = ballCounter.ToString();	
+			}
+		}		
 	}
 	
 	

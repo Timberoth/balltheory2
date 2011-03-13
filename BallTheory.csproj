@@ -67,6 +67,7 @@
      <Compile Include="Assets\Scripts\2D\Gizmos\Modulus.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Multiplier.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Repeater.cs" />
+     <Compile Include="Assets\Scripts\2D\Gizmos\RepeaterOutput.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Storage.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Subtractor.cs" />
      <None Include="Assets\Scripts\2D\Moving Platform\MovingPlatformEffects.js" />
