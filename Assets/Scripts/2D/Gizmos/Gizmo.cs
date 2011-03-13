@@ -87,12 +87,7 @@ public class Gizmo : MonoBehaviour {
 	{
 		// Check that the collision is with a ball.
 		if( collision.gameObject.tag == "Ball" )			
-		{										
-			// Keep an ball object game ref so it can be spawned later.
-			// This could break down if we start handling multiple ball types.
-			//if( ballObject == null )
-			//	ballObject = collision.gameObject;
-			
+		{			
 			// Increment the ball counter
 			ballCounter++;
 			

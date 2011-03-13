@@ -57,5 +57,18 @@ public class ModifierBox : MonoBehaviour {
 		
 		// Update text
 		textMesh.text = modifier.ToString();
+	}	
+	
+	
+	// Loop count can go from 0-9 and has no roll over.
+	public void DecrementLoopCount()
+	{
+		if( modifier > 0 )
+		{
+			modifier--;
+		
+			// Update text
+			textMesh.text = modifier.ToString();
+		}
 	}
 }
