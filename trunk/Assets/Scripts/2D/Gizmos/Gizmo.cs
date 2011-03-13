@@ -27,10 +27,14 @@ public class Gizmo : MonoBehaviour {
 	
 	// This is the amount of time to wait before automatically starting the BeginProcessing function.
 	// This can be set through the Editor per Gizmo.
-	public float autoProcessingTimer = 1.0f;
+	protected float autoProcessingTimer = 1.0f;
 	
 	// This is the actual timer.
-	private float processingTimer = 0.0f;
+	protected float processingTimer = 0.0f;
+	
+	// Track whether this Gizmo has been hit by a ball object and should begin counting
+	// down it processingTimer.
+	protected bool hasBeenHit = false;
 	
 	// Use this for initialization
 	protected void Start () 
@@ -42,7 +46,7 @@ public class Gizmo : MonoBehaviour {
 		
 		if( ballObject == null )
 		{
-			print("A gizmo was unable to get the BallObject reference");	
+			print("[ERROR] A gizmo was unable to get the BallObject reference");	
 		}
 		
 		// Do some one time calculations
@@ -65,7 +69,8 @@ public class Gizmo : MonoBehaviour {
 	{
 		ballCounter = 0;
 		processing = false;
-		processingTimer = 0.0f;
+		processingTimer = 0.0f;		
+		hasBeenHit = false;
 		
 		// Attempt to access the ball count and update it's value		
 		foreach( TextMesh textMesh in gameObject.GetComponentsInChildren<TextMesh>() )
@@ -78,7 +83,7 @@ public class Gizmo : MonoBehaviour {
 	}
 	
 	
-	void OnCollisionEnter( Collision collision )
+	public virtual void OnCollisionEnter( Collision collision )
 	{
 		// Check that the collision is with a ball.
 		if( collision.gameObject.tag == "Ball" )			
@@ -98,24 +103,29 @@ public class Gizmo : MonoBehaviour {
 			
 			// Reset the processing timer.
 			processingTimer = autoProcessingTimer;
+			
+			hasBeenHit = true;
 		}		
 	}	
 		
 	public virtual void Update()
 	{
-		if( processingTimer > 0.0f )
+		if( hasBeenHit )
 		{
-			processingTimer -= Time.deltaTime;
-		}
-		else 
-		{
-			processingTimer = 0.0f;	
-			
-			// Kick off the processing if it hasn't already been started.
-			if( !processing )
-			{				
-				StartCoroutine(BeginProcessing());
-			}				
+			if( processingTimer > 0.0f )
+			{
+				processingTimer -= Time.deltaTime;
+			}
+			else 
+			{
+				processingTimer = 0.0f;	
+				
+				// Kick off the processing if it hasn't already been started.
+				if( !processing )
+				{
+					StartCoroutine(BeginProcessing());
+				}				
+			}
 		}
 	}
 	
@@ -201,6 +211,7 @@ public class Gizmo : MonoBehaviour {
 		}
 				
 		ballCounter = 0;
-		processing = false;		
+		processing = false;
+		hasBeenHit = false;
     }	
 }

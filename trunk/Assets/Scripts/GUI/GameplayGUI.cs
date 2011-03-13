@@ -14,7 +14,7 @@ public class GameplayGUI : MonoBehaviour {
 		gameManager = gameManagerObject.GetComponent<GameManager>();
 		if( gameManager == null )
 		{
-			print("ERROR - Unable to get the GameManager reference in GameplayGUI::Start().");	
+			print("[ERROR] - Unable to get the GameManager reference in GameplayGUI::Start().");	
 		}
 	}
 
