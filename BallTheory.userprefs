@@ -1,16 +1,17 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\Gizmos\ModifierBox.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\Gizmos\Repeater.cs">
     <Files>
-      <File FileName="Assets\Scripts\2D\Gizmos\Gizmo.cs" Line="43" Column="35" />
-      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="94" Column="4" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Gizmo.cs" Line="208" Column="19" />
+      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="75" Column="42" />
       <File FileName="Assets\Scripts\2D\Gizmos\Multiplier.cs" Line="14" Column="17" />
-      <File FileName="Assets\Scripts\2D\Gizmos\Repeater.cs" Line="35" Column="4" />
-      <File FileName="Assets\Scripts\2D\Gizmos\RepeaterOutput.cs" Line="18" Column="2" />
-      <File FileName="Assets\Scripts\2D\Gizmos\ModifierBox.cs" Line="60" Column="3" />
-      <File FileName="Assets\Scripts\2D\Gizmos\Divider.cs" Line="18" Column="4" />
-      <File FileName="Assets\Scripts\2D\Gizmos\Modulus.cs" Line="23" Column="4" />
-      <File FileName="Assets\Scripts\2D\Gizmos\Storage.cs" Line="11" Column="23" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Repeater.cs" Line="105" Column="36" />
+      <File FileName="Assets\Scripts\2D\Gizmos\RepeaterOutput.cs" Line="75" Column="51" />
+      <File FileName="Assets\Scripts\2D\Gizmos\ModifierBox.cs" Line="16" Column="3" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Divider.cs" Line="27" Column="1" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Doubler.cs" Line="11" Column="1" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Adder.cs" Line="9" Column="4" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Halfer.cs" Line="8" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
