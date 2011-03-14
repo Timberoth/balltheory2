@@ -61,8 +61,7 @@ public class RepeaterOutput : Gizmo
 		// Wait for a little bit
         yield return new WaitForSeconds(0.5f);
 		
-		// Used the Repeater Output marker to figure out where the balls will be spit out from.
-		// TODO IMPLEMENT THIS PROPERLY
+		
 		ballSpawnPoint = gameObject.transform.position;					
 		ballSpawnPoint.y = ballSpawnPoint.y - 0.5f*ballSize.y - 0.5f*gizmoSize.y - 0.1f;			
 						
