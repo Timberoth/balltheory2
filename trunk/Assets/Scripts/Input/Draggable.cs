@@ -30,6 +30,11 @@ public class Draggable : MonoBehaviour {
 			worldPosition.z = 0.0f;
 			worldPosition.x += mouseOffset.x;
 			worldPosition.y += mouseOffset.y;
+			
+			// Round the numbers to use Snap Positioning.
+			worldPosition.x = (float)System.Math.Round(worldPosition.x);
+			worldPosition.y = (float)System.Math.Round(worldPosition.y);
+			
 			transform.position = worldPosition;
 			
 			// Move particle Effect
@@ -78,4 +83,9 @@ public class Draggable : MonoBehaviour {
 			// End particle effect
 		}
 	}		
+	
+	void OnMouseDrag()
+	{
+		
+	}
 }
