@@ -71,4 +71,10 @@ public class ModifierBox : MonoBehaviour {
 			textMesh.text = modifier.ToString();
 		}
 	}
+	
+	public void SetModifier( int newValue )
+	{
+		modifier = newValue;
+		textMesh.text = modifier.ToString();
+	}
 }

@@ -9,6 +9,10 @@ public class Repeater : Gizmo {
 	// Keep a reference to the RepeaterOutput object created.
 	private RepeaterOutput repeaterOutput;
 	
+	// Track the loop count to restore it after the iteration is done.
+	private int loopCount = 0;
+		
+	
 	new void Start()
 	{
 		// Call Gizmo's start function first.
@@ -82,8 +86,11 @@ public class Repeater : Gizmo {
 			// Call the BeginProcessing function for the RepeaterOutput.
 			StartCoroutine(repeaterOutput.BeginProcessing());
 			
-			// Decrement the Loop Count
+			// Decrement the Loop Count in the ModifierBox
 			modifierBox.DecrementLoopCount();
+			
+			// Increment our loop counter to track how many iterations have occured.
+			loopCount++;
 		}
 		
 		// No more iterations left, spit balls out from repeater.
@@ -117,8 +124,13 @@ public class Repeater : Gizmo {
 			}
 					
 			ballCounter = 0;
-		}		
-					
+			
+			// Reset the ModifierBox value after all the iterations are done.
+			// This is required to properly created nested loops.
+			modifierBox.SetModifier( loopCount );
+			loopCount = 0;
+		}							
+		
 		processing = false;
 		hasBeenHit = false;
     }	
