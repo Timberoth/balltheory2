@@ -51,6 +51,11 @@
   </ItemGroup>
   <ItemGroup>
      <None Include="Assets\Editor\TwoDHelper.js" />
+     <Compile Include="Assets\samples\projects\calculator\CalculatorDemo.cs" />
+     <Compile Include="Assets\samples\test\ListAndGridTest.cs" />
+     <Compile Include="Assets\samples\test\PopupTest.cs" />
+     <Compile Include="Assets\samples\test\SkinTest.cs" />
+     <Compile Include="Assets\samples\test\TestMain.cs" />
      <Compile Include="Assets\Scripts\2D\Ball\Ball.cs" />
      <Compile Include="Assets\Scripts\2D\Ball\BallFinish.cs" />
      <Compile Include="Assets\Scripts\2D\Ball\BallStart.cs" />
