@@ -45,7 +45,7 @@ public class ButtonTextures
 [AddComponentMenu ("GUI/Button")]    
 public class GuiButton : MonoBehaviour
 {
-    public GameObject messagee;
+    public string messagee = "";
     public string message = "";
     public string messageDoubleClick = "";
     public ButtonTextures textures;
@@ -55,20 +55,21 @@ public class GuiButton : MonoBehaviour
     
     private int clickCount = 1;
     private float lastClickTime = 0.0f;
+	private bool mouseOver = false;
+	
     static private float doubleClickSensitivity = 0.5f;
 
     protected virtual void SetButtonTexture(ButtonState state)
     {
         if (textures[state] != null)
         {
-            myGUITexture.texture = textures[state];
-			print("Setting button texture");
+            myGUITexture.texture = textures[state];			
         }
     }
     
     public virtual void Reset()
     {
-        messagee = gameObject;
+        messagee = "";
         message = "";
         messageDoubleClick = "";
     }
@@ -89,8 +90,8 @@ public class GuiButton : MonoBehaviour
         state++;
         if (state == 1)
             SetButtonTexture(ButtonState.hover);
-		
-		print("OnMouseEnter");
+				
+		mouseOver = true;
     }
 
     public virtual void OnMouseDown()
@@ -98,13 +99,17 @@ public class GuiButton : MonoBehaviour
         state++;
         if (state == 2)
             SetButtonTexture(ButtonState.armed);
-		
-		print("OnMouseDown");
+				
     }
 
     public virtual void OnMouseUp()
-    {
-		print("OnMouseUp");
+    {		
+		// Don't register the click if it' outside the button.
+		if( !mouseOver )
+		{
+			return;
+		}
+		
         if (Time.time - lastClickTime <= doubleClickSensitivity)
         {
             ++clickCount;
@@ -119,16 +124,20 @@ public class GuiButton : MonoBehaviour
             state--;
             if (clickCount == 1)
             {
-                if (messagee != null && message != "")
-                {
-                    messagee.SendMessage(message, this);
+                if (messagee != "" && message != "")
+                {								
+					GameObject gameObject = GameObject.Find(messagee);
+					if( gameObject != null )
+						gameObject.SendMessage( message, SendMessageOptions.RequireReceiver);                    
                 }
             }
             else
             {
-                if (messagee != null && messageDoubleClick != "")
+                if (messagee != "" && messageDoubleClick != "")
                 {
-                    messagee.SendMessage(messageDoubleClick, this);
+                    GameObject gameObject = GameObject.Find(messagee);
+					if( gameObject != null )
+						gameObject.SendMessage( messageDoubleClick, SendMessageOptions.RequireReceiver);  
                 }
             }
         }
@@ -138,18 +147,22 @@ public class GuiButton : MonoBehaviour
             if (state < 0)
                 state = 0;
         }
-        SetButtonTexture(ButtonState.normal);
-        lastClickTime = Time.time;
+		
+		// If we're still over the button, then make sure to stay on the hover texture.
+		if( mouseOver )
+        	SetButtonTexture(ButtonState.hover);
+		else
+			SetButtonTexture(ButtonState.normal);
+		
+        lastClickTime = Time.time;			
     }
 
     public virtual void OnMouseExit()
-    {
-        if (state > 0)
-            state--;
-        if (state == 0)
-            SetButtonTexture(ButtonState.normal);
-		
-		print("OnMouseExit");
+    {		
+		// Deselect the button on mouse exit.
+		state = 0;
+		SetButtonTexture(ButtonState.normal);		
+		mouseOver = false;
     }
 
 #if (UNITY_IPHONE || UNITY_ANDROID)
@@ -173,18 +186,22 @@ public class GuiButton : MonoBehaviour
                 {
                     if (touch.tapCount == 1)
                     {
-                        if (messagee != null && message != "")
+                        if (messagee != "" && message != "")
                         {
-                            messagee.SendMessage(message, this);
-                        }
+                            GameObject gameObject = GameObject.Find(messagee);
+							if( gameObject != null )
+								gameObject.SendMessage( messageClick, SendMessageOptions.RequireReceiver);  
+		               	}
                     }
                     else if (touch.tapCount == 2)
                     {
-                        if (messagee != null && messageDoubleClick != "")
+                        if (messagee != "" && messageDoubleClick != "")
                         {
-                            messagee.SendMessage(messageDoubleClick, this);
-                        }
-                    }
+                            GameObject gameObject = GameObject.Find(messagee);
+							if( gameObject != null )
+								gameObject.SendMessage( messageDoubleClick, SendMessageOptions.RequireReceiver);  
+		                        }
+		                    }
                 }
                 break;
             }

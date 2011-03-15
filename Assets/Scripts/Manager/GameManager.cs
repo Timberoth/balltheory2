@@ -4,8 +4,19 @@ using System.Collections;
 public class GameManager : MonoBehaviour {
 	
 	// Set all the GameObject references through the GUI since Unity is stupidly set up this way.
+	
+	// Dropping objects
 	public GameObject ballObject = null;
+	
+	// Gizmos
+	public GameObject adderObject = null;
+	public GameObject doublerObject = null;
+	public GameObject halferObject = null;
+	public GameObject repeaterObject = null;
 	public GameObject repeaterOutputObject = null;
+	public GameObject storageObject = null;
+	public GameObject subtractorObject = null;	
+	
 	
 	// Number of balls that will spawn at the BallStart position
 	public int startingBalls = 1;
@@ -94,4 +105,16 @@ public class GameManager : MonoBehaviour {
 			print("[ERROR] Ball Object has not been set in the BallStart object.");
 		}			
 	}
+	
+	
+	public void CreateAdder()
+	{
+		print("Create Adder");	
+	}
+	
+	
+	public void CreateSubtractor()
+	{
+		print("Create Subtractor");	
+	}	
 }

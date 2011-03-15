@@ -8,6 +8,8 @@ public class CameraScrolling : MonoBehaviour {
 	public float dragSpeed = 15.0f;
 	public float cameraBuffer = 10.0f;
 	
+	public bool scrollingEnabled = false;
+	
 	// Use this for initialization
 	void Start () 
 	{
@@ -17,6 +19,9 @@ public class CameraScrolling : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+		if( !scrollingEnabled )
+			return;
+		
 		// If the mouse is at the edge of the screen, move the camera over.
 		float mPosX = Input.mousePosition.x;
 		float mPosY = Input.mousePosition.y;		
