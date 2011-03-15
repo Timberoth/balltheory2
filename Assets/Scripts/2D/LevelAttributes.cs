@@ -30,6 +30,7 @@ public class LevelAttributes : MonoBehaviour {
 		instance = null;
 	}
 	
+	
 	void OnDrawGizmos()
 	{
 		Gizmos.color = sceneViewDisplayColor;
@@ -41,13 +42,15 @@ public class LevelAttributes : MonoBehaviour {
 		Gizmos.DrawLine (lowerLeft, upperLeft);
 		Gizmos.DrawLine (upperLeft, upperRight);
 		Gizmos.DrawLine (upperRight, lowerRight);
-		Gizmos.DrawLine (lowerRight, lowerLeft);
-	}
-	
+		Gizmos.DrawLine (lowerRight, lowerLeft);		
+	}	
+		
+		
 	void Start() 
 	{
 		GameObject createdBoundaries = new GameObject ("Created Boundaries");
 		createdBoundaries.transform.parent = transform;
+			
 		
 		GameObject leftBoundary = new GameObject ("Left Boundary");
 		leftBoundary.transform.parent = createdBoundaries.transform;
