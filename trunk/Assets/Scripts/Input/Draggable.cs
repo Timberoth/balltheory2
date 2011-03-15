@@ -35,6 +35,33 @@ public class Draggable : MonoBehaviour {
 			worldPosition.x = (float)System.Math.Round(worldPosition.x);
 			worldPosition.y = (float)System.Math.Round(worldPosition.y);
 			
+			// Do some bounds checking.
+			LevelAttributes attributes = LevelAttributes.GetInstance();
+			
+			// Left bound
+			if( worldPosition.x < attributes.bounds.x )
+			{
+				worldPosition.x = attributes.bounds.x;
+			}
+			
+			// Right bound
+			if( worldPosition.x > (attributes.bounds.x + attributes.bounds.width) )
+			{
+				worldPosition.x = attributes.bounds.x + attributes.bounds.width;
+			}
+			
+			// Bottom bound
+			if( worldPosition.y < attributes.bounds.y )
+			{
+				worldPosition.y = attributes.bounds.y;
+			}
+			
+			// Top bound
+			if( worldPosition.y > (attributes.bounds.y + attributes.bounds.height) )
+			{
+				worldPosition.y = attributes.bounds.y + attributes.bounds.height;
+			}
+						
 			transform.position = worldPosition;
 			
 			// Move particle Effect
