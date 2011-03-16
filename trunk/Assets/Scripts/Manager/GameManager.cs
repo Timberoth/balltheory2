@@ -30,22 +30,86 @@ public class GameManager : MonoBehaviour {
 	// Track whether the game has started
 	private bool gameStarted = false;
 	
+	private bool checkForFinish = false;
+	
+	// This is the amount of time to wait before finishing the level.	
+	private float FINISH_WAIT_TIME = 1.0f;
+	
+	// This is the actual finish timer.
+	private float finishTimer = 0.0f;
+	
+	
+	// Balls Collected Text
+	GUIText ballsCollectedText;
+	
 	public void BallCollected()
 	{
 		numberCollectedBalls++;
+		
+		// Set the required ball text.		
+		ballsCollectedText.text = "Balls Collected: "+numberCollectedBalls.ToString();
+		
+		// If we have the exact number of balls, wait for a little to see if the level is complete.
+		if( numberCollectedBalls == requiredBalls )
+		{
+			checkForFinish = true;			
+		}
+		else
+		{
+			checkForFinish = false;			
+		}
+		
+		finishTimer = FINISH_WAIT_TIME;
 	}
 		
 	// Use this for initialization
 	void Start () 
 	{		
-			
+		// Set the required ball text.
+		GameObject textObject = GameObject.Find("Balls_Required_Text");
+		GUIText text = textObject.GetComponent<GUIText>();
+		text.text = "Balls Required: "+requiredBalls.ToString();
+		
+		GameObject textObject2 = GameObject.Find("Balls_Collected_Text");
+		ballsCollectedText = textObject2.GetComponent<GUIText>();
+		ballsCollectedText.text = "Balls Collected: "+numberCollectedBalls.ToString();
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
-	
+		if( checkForFinish )
+		{
+			if( finishTimer > 0.0f )
+			{
+				finishTimer -= Time.deltaTime;
+			}
+			else 
+			{
+				checkForFinish = false;
+				finishTimer = 0.0f;
+				StartCoroutine(FinishLevel());
+			}
+		}
 	}
+	
+	
+	private IEnumerator FinishLevel()
+	{
+		print("Finish Level");
+		
+		// Play particle effect
+		
+		// Play sound effect
+		
+		// Play animation
+		
+		yield return new WaitForSeconds(0.5f);
+		
+		// Go to the score screen, from there go to Next Level or Level Select.
+		
+	}
+	
 	
 	public void StartLevel()
 	{
@@ -78,8 +142,14 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 			
-			
+			numberCollectedBalls = 0;
 			gameStarted = false;
+			checkForFinish = false;
+			finishTimer = 0.0f;
+			
+			ballsCollectedText.text = "Balls Collected: "+numberCollectedBalls.ToString();
+			
+			StartLevel();
 		}
 	}
 	
