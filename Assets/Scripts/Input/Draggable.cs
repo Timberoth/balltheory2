@@ -30,11 +30,7 @@ public class Draggable : MonoBehaviour {
 			worldPosition.z = 0.0f;
 			worldPosition.x += mouseOffset.x;
 			worldPosition.y += mouseOffset.y;
-			
-			// Round the numbers to use Snap Positioning.
-			worldPosition.x = (float)System.Math.Round(worldPosition.x);
-			worldPosition.y = (float)System.Math.Round(worldPosition.y);
-			
+					
 			// Do some bounds checking.
 			LevelAttributes attributes = LevelAttributes.GetInstance();
 			
@@ -108,6 +104,16 @@ public class Draggable : MonoBehaviour {
 			mouseHeld = false;			
 			
 			// End particle effect
+			
+			// Use the camera to convert from screen to world space
+			Camera mainCamera = UnityEngine.Camera.mainCamera;
+			Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+			
+			// Round the numbers to use Snap Positioning.
+			worldPosition.x = (float)System.Math.Round(worldPosition.x);
+			worldPosition.y = (float)System.Math.Round(worldPosition.y);
+			worldPosition.z = 0.0f;
+			transform.position = worldPosition;
 		}
 	}		
 	
