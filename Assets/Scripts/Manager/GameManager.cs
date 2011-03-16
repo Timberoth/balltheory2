@@ -107,14 +107,37 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	
-	public void CreateAdder()
+	public void CreateGizmo( string gizmo )
 	{
-		print("Create Adder");	
-	}
-	
-	
-	public void CreateSubtractor()
-	{
-		print("Create Subtractor");	
+		// Need to figure out how to place the gizmo on the screen.
+		Vector3 position = new Vector3(10.0f, 10.0f, 0.0f);
+		
+		switch( gizmo )
+		{
+		case "Adder":
+			Instantiate( adderObject, position, Quaternion.identity);
+			break;
+			
+		case "Doubler":
+			Instantiate( doublerObject, position, Quaternion.identity);
+			break;
+			
+		case "Halfer":
+			Instantiate( halferObject, position, Quaternion.identity);
+			break;
+			
+		case "Repeater":
+			Instantiate( repeaterObject, position, Quaternion.identity);
+			break;
+			
+		case "Storage":
+			Instantiate( storageObject, position, Quaternion.identity);
+			break;
+			
+		case "Subtractor":
+			Instantiate( subtractorObject, position, Quaternion.identity);
+			break;
+			
+		}
 	}	
 }
