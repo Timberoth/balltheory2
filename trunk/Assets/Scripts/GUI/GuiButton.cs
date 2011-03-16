@@ -128,7 +128,24 @@ public class GuiButton : MonoBehaviour
                 {								
 					GameObject gameObject = GameObject.Find(messagee);
 					if( gameObject != null )
-						gameObject.SendMessage( message, SendMessageOptions.RequireReceiver);                    
+					{
+						// Parse the message, 1st part operation, 2nd part Gizmo
+						if( message.Contains("Create_") )
+						{
+							string[] parts = message.Split('_');
+							string function = "";
+							if( parts[0] == "Create" )
+							{
+								function = "CreateGizmo";
+							}
+							
+							gameObject.SendMessage( function, parts[1], SendMessageOptions.RequireReceiver);
+						}
+						else
+						{
+							gameObject.SendMessage( message, SendMessageOptions.RequireReceiver);
+						}
+					}
                 }
             }
             else
@@ -137,7 +154,9 @@ public class GuiButton : MonoBehaviour
                 {
                     GameObject gameObject = GameObject.Find(messagee);
 					if( gameObject != null )
-						gameObject.SendMessage( messageDoubleClick, SendMessageOptions.RequireReceiver);  
+					{
+						gameObject.SendMessage( messageDoubleClick, SendMessageOptions.RequireReceiver);
+					}
                 }
             }
         }
