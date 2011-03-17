@@ -18,6 +18,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject subtractorObject = null;	
 	
 	
+	// Keep a reference to the current object being dragged.
+	public GameObject dragObject = null;
+	
 	// Number of balls that will spawn at the BallStart position
 	public int startingBalls = 1;
 	
@@ -210,4 +213,16 @@ public class GameManager : MonoBehaviour {
 			
 		}
 	}	
+	
+	public void DeleteGizmo()
+	{
+		// Check which gizmo is being dragged and delete it.
+		if( dragObject != null )
+		{
+			print("Delete Gizmo: "+dragObject);
+			Destroy( dragObject );
+			
+			dragObject = null;
+		}				
+	}
 }

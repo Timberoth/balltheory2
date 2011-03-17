@@ -53,11 +53,11 @@ public class GuiButton : MonoBehaviour
     protected int state = 0;
     protected GUITexture myGUITexture;
     
-    private int clickCount = 1;
-    private float lastClickTime = 0.0f;
-	private bool mouseOver = false;
+    protected int clickCount = 1;
+    protected float lastClickTime = 0.0f;
+	protected bool mouseOver = false;
 	
-    static private float doubleClickSensitivity = 0.5f;
+    static protected float doubleClickSensitivity = 0.5f;
 
     protected virtual void SetButtonTexture(ButtonState state)
     {
@@ -128,23 +128,8 @@ public class GuiButton : MonoBehaviour
                 {								
 					GameObject gameObject = GameObject.Find(messagee);
 					if( gameObject != null )
-					{
-						// Parse the message, 1st part operation, 2nd part Gizmo
-						if( message.Contains("Create_") )
-						{
-							string[] parts = message.Split('_');
-							string function = "";
-							if( parts[0] == "Create" )
-							{
-								function = "CreateGizmo";
-							}
-							
-							gameObject.SendMessage( function, parts[1], SendMessageOptions.RequireReceiver);
-						}
-						else
-						{
-							gameObject.SendMessage( message, SendMessageOptions.RequireReceiver);
-						}
+					{						
+						gameObject.SendMessage( message, SendMessageOptions.RequireReceiver);						
 					}
                 }
             }
@@ -185,7 +170,7 @@ public class GuiButton : MonoBehaviour
     }
 
 #if (UNITY_IPHONE || UNITY_ANDROID)
-    void Update()
+    public virtual void Update()
     {
         int count = Input.touchCount;
         for (int i = 0; i < count; i++)

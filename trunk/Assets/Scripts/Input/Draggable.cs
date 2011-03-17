@@ -11,10 +11,16 @@ public class Draggable : MonoBehaviour {
 	// This will prevent the object's pivot from jumping to the mouse's position when dragging.
 	private Vector2 mouseOffset;
 	
+	// Keep a reference to the GameManager so it can be used for tracking purposes.
+	private GameManager gameManager;
+	
 	// Use this for initialization
 	void Start ()
 	{
-		mouseHeld = false;		
+		mouseHeld = false;
+		
+		GameObject gameManagerObject = GameObject.Find("GameManager");
+		gameManager = gameManagerObject.GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame
@@ -83,6 +89,9 @@ public class Draggable : MonoBehaviour {
 		bool mouseDown = Input.GetMouseButtonDown(0);
 		if( mouseDown && !mouseHeld )
 		{
+			// Have GameManager track this object possibly being dragged.
+			gameManager.dragObject = gameObject;
+			
 			// Calculate mouse offset.
 			Camera mainCamera = UnityEngine.Camera.mainCamera;
 			Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
@@ -101,7 +110,7 @@ public class Draggable : MonoBehaviour {
 		bool mouseUp = Input.GetMouseButtonUp(0);
 		if( mouseUp && mouseHeld )
 		{
-			mouseHeld = false;			
+			mouseHeld = false;
 			
 			// End particle effect
 			
@@ -114,6 +123,8 @@ public class Draggable : MonoBehaviour {
 			worldPosition.y = (float)System.Math.Round(worldPosition.y);
 			worldPosition.z = 0.0f;
 			transform.position = worldPosition;
+			
+			gameManager.dragObject = null;
 		}
 	}		
 	
