@@ -27,24 +27,26 @@ public class CreateButton : GuiButton {
             {
                 if (messagee != "" && message != "")
                 {								
-					GameObject gameObject = GameObject.Find(messagee);
-					if( gameObject != null )
+					GameObject messageeObject = GameObject.Find(messagee);
+					if( messageeObject != null )
 					{
 						// Parse the message, 1st part operation, 2nd part Gizmo
 						if( message.Contains("Create_") )
 						{
-							string[] parts = message.Split('_');
-							string function = "";
-							if( parts[0] == "Create" )
-							{
-								function = "CreateGizmo";
-							}
+							string[] parts = message.Split('_');							
 							
-							gameObject.SendMessage( function, parts[1], SendMessageOptions.RequireReceiver);
+							Camera mainCamera = UnityEngine.Camera.mainCamera;
+							Vector3 worldPosition = mainCamera.ViewportToWorldPoint( gameObject.transform.position );							
+							
+							CreateButtonData data = new CreateButtonData();
+							data.x = worldPosition.x - 2.0f;
+							data.y = worldPosition.y + 1.0f;
+							data.gizmoName = parts[1];							
+							messageeObject.SendMessage( "CreateGizmo", data, SendMessageOptions.RequireReceiver);
 						}
 						else
 						{
-							gameObject.SendMessage( message, SendMessageOptions.RequireReceiver);
+							messageeObject.SendMessage( message, SendMessageOptions.RequireReceiver);
 						}
 					}
                 }

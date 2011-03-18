@@ -1,6 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
+public class CreateButtonData
+{
+    public float x = 0.0f;
+    public float y = 0.0f;
+    public string gizmoName = "";
+}
+
 public class GameManager : MonoBehaviour {
 	
 	// Set all the GameObject references through the GUI since Unity is stupidly set up this way.
@@ -111,6 +118,8 @@ public class GameManager : MonoBehaviour {
 		
 		// Go to the score screen, from there go to Next Level or Level Select.
 		
+		
+		// Load up the next level.		
 	}
 	
 	
@@ -120,6 +129,12 @@ public class GameManager : MonoBehaviour {
 		{
 			gameStarted = true;
 			StartCoroutine(SpawnStartingBalls());	
+		}
+		
+		// If the level has already been started, restart it.
+		else
+		{
+			RestartLevel();
 		}
 	}
 	
@@ -180,12 +195,14 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	
-	public void CreateGizmo( string gizmo )
+	public void CreateGizmo( CreateButtonData data )
 	{
 		// Need to figure out how to place the gizmo on the screen.
-		Vector3 position = new Vector3(10.0f, 10.0f, 0.0f);
+		data.x = (float)System.Math.Round(data.x);
+		data.y = (float)System.Math.Round(data.y);
+		Vector3 position = new Vector3( data.x, data.y, 0.0f);
 		
-		switch( gizmo )
+		switch( data.gizmoName )
 		{
 		case "Adder":
 			Instantiate( adderObject, position, Quaternion.identity);
