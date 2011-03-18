@@ -30,7 +30,7 @@ public class Draggable : MonoBehaviour {
 		{					
 			// Use the camera to convert from screen to world space
 			Camera mainCamera = UnityEngine.Camera.mainCamera;
-			Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
+			Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);			
 			
 			// Make sure to keep everything in 2D
 			worldPosition.z = 0.0f;
