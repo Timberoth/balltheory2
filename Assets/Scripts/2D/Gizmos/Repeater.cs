@@ -68,6 +68,9 @@ public class Repeater : Gizmo {
 			// Increment the ball counter for RepeaterOutput.
 			repeaterOutput.AddBalls(ballCounter);
 			
+			// Set the DropObject reference for the RepeaterOutput so it spits out the right objects.
+			repeaterOutput.ballObject = this.ballObject;
+			
 			// All the balls have been "transfered" to the RepeaterOutput object
 			ballCounter = 0;
 			UpdateBallCountText();
@@ -108,8 +111,8 @@ public class Repeater : Gizmo {
 			// Begin spitting out the balls and decrement the ball counter until all the balls are gone.
 			for( int i = 0; i < ballsAtStart; i++ )
 			{				
-				// Instantiate ball at the bottom of the gizmo			
-				Instantiate( ballObject, ballSpawnPoint, Quaternion.identity );
+				// Instantiate ball at the bottom of the gizmo
+				CreateNewDropObject( ballObject, ballSpawnPoint, Quaternion.identity );
 				
 				ballCounter--;
 				

@@ -70,8 +70,8 @@ public class RepeaterOutput : Gizmo
 		// Begin spitting out the balls and decrement the ball counter until all the balls are gone.
 		for( int i = 0; i < ballsAtStart; i++ )
 		{				
-			// Instantiate ball at the bottom of the gizmo			
-			Instantiate( ballObject, ballSpawnPoint, Quaternion.identity );
+			// Instantiate ball at the bottom of the gizmo	
+			CreateNewDropObject( ballObject, ballSpawnPoint, Quaternion.identity );
 			
 			ballCounter--;
 			
