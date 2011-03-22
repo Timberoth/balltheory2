@@ -8,7 +8,7 @@ public class Gizmo : MonoBehaviour {
 	// Privates
 	
 	// Keep a reference to the ball objects that will be used as input and output
-	protected GameObject ballObject;
+	public GameObject ballObject;
 	
 	// Keep track of how many balls are in this gizmo
 	protected int ballCounter = 0;	
@@ -36,28 +36,16 @@ public class Gizmo : MonoBehaviour {
 	// down it processingTimer.
 	protected bool hasBeenHit = false;
 	
+	protected GameManager gameManager = null;
+	
 	// Use this for initialization
 	protected void Start () 
-	{		
-		// Grab the ball game object ref from the "BallStart" component
-		GameObject gameManagerObject = GameObject.Find("GameManager");
-		GameManager gameManager = gameManagerObject.GetComponent<GameManager>();
-		ballObject = gameManager.ballObject;
-		
-		if( ballObject == null )
-		{
-			print("[ERROR] A gizmo was unable to get the BallObject reference");	
-		}
-		
+	{						
 		// Do some one time calculations
 		
-		// Get ball size
-		Collider ballCollider = ballObject.GetComponent<Collider>();
-		ballSize = ballCollider.bounds.size;
-			
-		// Get gizmo size
-		Collider gizmoCollider = gameObject.GetComponent<Collider>();
-		gizmoSize = gizmoCollider.bounds.size;
+		// Keep a reference to the game manager
+		GameObject gameManagerObject = GameObject.Find("GameManager");
+		gameManager = gameManagerObject.GetComponent<GameManager>();			
 					
 		// Play the idle animation.	
 		
@@ -67,6 +55,7 @@ public class Gizmo : MonoBehaviour {
 	
 	public void ResetGizmo()
 	{
+		ballObject = null;		
 		ballCounter = 0;
 		processing = false;
 		processingTimer = 0.0f;		
@@ -88,6 +77,39 @@ public class Gizmo : MonoBehaviour {
 		// Check that the collision is with a ball.
 		if( collision.gameObject.tag == "Ball" )			
 		{			
+			
+			// If this is the first DropObject collision, keep track of the specific type to 
+			// output the proper objects.
+			if( this.ballObject == null )
+			{				
+				// Get the balls type to figure out if it's a wheel, beam, microchip, etc.
+				Ball ball = collision.gameObject.GetComponent<Ball>();																
+				if( ball.dropObject != null )
+				{
+					this.ballObject = ball.dropObject;
+				
+					// Get drop object size
+					Collider ballCollider = ballObject.GetComponent<Collider>();
+					ballSize = ballCollider.bounds.size;	
+					
+					// HACK TO FIX SOME WEIRD BUG - Basically box beam mesh has a bounds of (0,0,0) instead of (1,1,1)
+					if( ballSize.x == 0.0f || ballSize.y == 0.0f )
+					{
+						ballSize.x = 1.0f;
+						ballSize.y = 1.0f;
+						ballSize.z = 1.0f;
+					}
+						
+					// Get gizmo size
+					Collider gizmoCollider = gameObject.GetComponent<Collider>();
+					gizmoSize = gizmoCollider.bounds.size;									
+				}	
+				else
+				{
+					print("[ERROR] The Drop Object used as input did not have an DropObject reference.");	
+				}							
+			}
+			
 			// Increment the ball counter
 			ballCounter++;
 			
@@ -183,15 +205,14 @@ public class Gizmo : MonoBehaviour {
 		
 		// Calculate where the balls will be spit out from		
 		ballSpawnPoint = gameObject.transform.position;					
-		ballSpawnPoint.y = ballSpawnPoint.y - 0.5f*ballSize.y - 0.5f*gizmoSize.y - 0.1f;			
+		ballSpawnPoint.y = ballSpawnPoint.y - 0.5f*ballSize.y - 0.5f*gizmoSize.y - 0.2f;			
 						
-		int ballsAtStart = ballCounter;
+		int ballsAtStart = ballCounter;			
 		
 		// Begin spitting out the balls and decrement the ball counter until all the balls are gone.
 		for( int i = 0; i < ballsAtStart; i++ )
 		{				
-			// Instantiate ball at the bottom of the gizmo			
-			Instantiate( ballObject, ballSpawnPoint, Quaternion.identity );
+			CreateNewDropObject( ballObject, ballSpawnPoint, Quaternion.identity );
 			
 			ballCounter--;
 			
@@ -205,8 +226,18 @@ public class Gizmo : MonoBehaviour {
 			yield return new WaitForSeconds(0.5f);
 		}
 				
-		ballCounter = 0;
-		processing = false;
-		hasBeenHit = false;
+		// Reset the gizmo for the next iteration
+		ResetGizmo();
     }	
+	
+	
+	public void CreateNewDropObject( GameObject type, Vector3 position, Quaternion orientation )
+	{
+		// Instantiate ball at the bottom of the gizmo			
+		GameObject newObject = Instantiate( type, position, orientation ) as GameObject;
+			
+		// Make sure that the new Drop object has a reference to the object it is like Beam, Wheel, Microchip, etc.
+		Ball ballComponent = newObject.GetComponent<Ball>();
+		ballComponent.dropObject = ballObject;
+	}
 }

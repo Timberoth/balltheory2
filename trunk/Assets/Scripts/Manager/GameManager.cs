@@ -8,12 +8,15 @@ public class CreateButtonData
     public string gizmoName = "";
 }
 
+// Different drop object types
+public enum DropObject {Wheel, Beam, Microchip, Energy, Oil};
+
+
 public class GameManager : MonoBehaviour {
-	
+			
 	// Set all the GameObject references through the GUI since Unity is stupidly set up this way.
 	
-	// Dropping objects
-	public GameObject ballObject = null;
+	private string[] spawnpointNames = {"WheelSpawn", "BeamSpawn", "MicrochipSpawn", "EnergySpawn", "OilSpawn" };
 	
 	// Gizmos
 	public GameObject adderObject = null;
@@ -27,10 +30,7 @@ public class GameManager : MonoBehaviour {
 	
 	// Keep a reference to the current object being dragged.
 	public GameObject dragObject = null;
-	
-	// Number of balls that will spawn at the BallStart position
-	public int startingBalls = 1;
-	
+		
 	// Number of balls to complete this level.
 	public int requiredBalls = 1;
 
@@ -52,6 +52,8 @@ public class GameManager : MonoBehaviour {
 	// Balls Collected Text
 	GUIText ballsCollectedText;
 	
+	
+	// Constructor
 	public void BallCollected()
 	{
 		numberCollectedBalls++;
@@ -128,7 +130,11 @@ public class GameManager : MonoBehaviour {
 		if( !gameStarted )
 		{
 			gameStarted = true;
-			StartCoroutine(SpawnStartingBalls());	
+			// Go through all the possible drop object spawn points and begin spawning.
+			foreach( string name in spawnpointNames )
+			{
+				StartCoroutine( SpawnStartingObjects( name ) );
+			}
 		}
 		
 		// If the level has already been started, restart it.
@@ -171,26 +177,36 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 	
-	private IEnumerator SpawnStartingBalls()
-    {	
-		// Grab the BallStart object.
-		GameObject ballStart = GameObject.Find("BallStart");		
+	private IEnumerator SpawnStartingObjects( string name )
+    {			
+		// Grab the DropObject spawn point.
+		GameObject spawnpointObject = GameObject.Find(name);
 		
-		if( ballObject != null )
+		if( spawnpointObject != null )
 		{
-			// Create all the starting ball objects
-			for( int i = 0; i < startingBalls; i++ )
-			{
-				// Wait for a little before ball spawns
-				yield return new WaitForSeconds(0.5f);
-				
-				Instantiate( ballObject, ballStart.transform.position, Quaternion.identity );
+			BallStart spawnpoint = spawnpointObject.GetComponent<BallStart>();
+		
+			if( spawnpoint.ballObject != null )
+			{							
+				// Create all the starting ball objects
+				for( int i = 0; i < spawnpoint.startingBalls; i++ )
+				{
+					// Wait for a little before ball spawns
+					yield return new WaitForSeconds(0.5f);
+					
+					// Create the new drop object					
+					GameObject dropObject = Instantiate( spawnpoint.ballObject, spawnpointObject.transform.position, Quaternion.identity ) as GameObject;
+					
+					// Make sure that the new Drop object has a reference to the object it is like Beam, Wheel, Microchip, etc.
+					Ball ballComponent = dropObject.GetComponent<Ball>();
+					ballComponent.dropObject = spawnpoint.ballObject;
+				}
 			}
-		}
-		else
-		{
-			// This means that the BallStart object has not been added to the scene.
-			print("[ERROR] Ball Object has not been set in the BallStart object.");
+			else
+			{
+				// This means that the BallStart object has not been added to the scene.
+				print("[ERROR] Ball Object has not been set in the BallStart object.");
+			}				
 		}			
 	}
 	
