@@ -9,16 +9,26 @@ public class CreateButtonData
 }
 
 // Different drop object types
-public enum DropObject {Wheel, Beam, Microchip, Energy, Oil};
+public enum DropObject {Beam, Wheel, Microchip, Energy, Oil};
 
 
 public class GameManager : MonoBehaviour {
-			
-	// Set all the GameObject references through the GUI since Unity is stupidly set up this way.
+				
+	// Spawn Point Object Names
+	private string[] spawnpointNames = { "BeamSpawn", "WheelSpawn", "MicrochipSpawn", "EnergySpawn", "OilSpawn" };
 	
-	private string[] spawnpointNames = {"WheelSpawn", "BeamSpawn", "MicrochipSpawn", "EnergySpawn", "OilSpawn" };
+	// Drop Object Text Names
+	private string[] dropObjectTextNames = { "Beam_Text", "Wheel_Text", "Microchip_Text", "Energy_Text", "Oil_Text" };
 	
-	// Gizmos
+	
+	// Num Required Objects Per Level
+	public int[] numObjectsRequired = { 1, 0, 0, 0, 0 };
+	
+	// Num Objects Collected Per Level
+	private int[] numObjectsCollected = { 0, 0, 0, 0, 0 };
+	
+	
+	// Gizmos Object References
 	public GameObject adderObject = null;
 	public GameObject doublerObject = null;
 	public GameObject halferObject = null;
@@ -30,61 +40,77 @@ public class GameManager : MonoBehaviour {
 	
 	// Keep a reference to the current object being dragged.
 	public GameObject dragObject = null;
-		
-	// Number of balls to complete this level.
-	public int requiredBalls = 1;
-
-	// Number of ball collected at the ball finish.
-	private int numberCollectedBalls = 0;
-		
+	
+	
 	// Track whether the game has started
 	private bool gameStarted = false;
 	
+	
+	// Check for finish
 	private bool checkForFinish = false;
+	
 	
 	// This is the amount of time to wait before finishing the level.	
 	private float FINISH_WAIT_TIME = 1.0f;
-	
+		
 	// This is the actual finish timer.
 	private float finishTimer = 0.0f;
-	
-	
+		
 	// Balls Collected Text
 	GUIText ballsCollectedText;
 	
 	
+	
 	// Constructor
-	public void BallCollected()
+	public void BallCollected( GameObject dropObject )
 	{
-		numberCollectedBalls++;
+		Ball component = dropObject.GetComponent<Ball>();
+		int type = (int)component.dropType;
+		numObjectsCollected[type]++;
 		
-		// Set the required ball text.		
-		ballsCollectedText.text = "Balls Collected: "+numberCollectedBalls.ToString();
-		
-		// If we have the exact number of balls, wait for a little to see if the level is complete.
-		if( numberCollectedBalls == requiredBalls )
-		{
-			checkForFinish = true;			
-		}
-		else
-		{
-			checkForFinish = false;			
-		}
+		// Update drop object text
+		GameObject textObject = GameObject.Find( dropObjectTextNames[type] );
+		GUIText text = textObject.GetComponent<GUIText>();
+		text.text = numObjectsCollected[type].ToString()+"/"+numObjectsRequired[type].ToString();
+									
+		CheckForFinish();				
 		
 		finishTimer = FINISH_WAIT_TIME;
 	}
+	
+	
+	// Check if all the object requirements have been met.
+	void CheckForFinish()
+	{
+		bool done = true;
 		
+		// If we have the exact number of required objects, wait for a little to see if the level is complete.
+		for( int i = 0; i < numObjectsCollected.Length; i++ )
+		{			
+			if( numObjectsCollected[i] != numObjectsRequired[i] )
+				done = false;			
+		}
+		
+		if( done )
+			checkForFinish = true;
+		else
+			checkForFinish = false;
+	}
+		
+	
 	// Use this for initialization
 	void Start () 
 	{		
-		// Set the required ball text.
-		GameObject textObject = GameObject.Find("Balls_Required_Text");
-		GUIText text = textObject.GetComponent<GUIText>();
-		text.text = "Balls Required: "+requiredBalls.ToString();
+		GUIText text;
+		GameObject textObject;
 		
-		GameObject textObject2 = GameObject.Find("Balls_Collected_Text");
-		ballsCollectedText = textObject2.GetComponent<GUIText>();
-		ballsCollectedText.text = "Balls Collected: "+numberCollectedBalls.ToString();
+		// Set up the Drop Object Text
+		for( int i = 0; i < dropObjectTextNames.Length; i++ )
+		{
+			textObject = GameObject.Find( dropObjectTextNames[i] );
+			text = textObject.GetComponent<GUIText>();
+			text.text = "0/"+numObjectsRequired[i].ToString();
+		}
 	}
 	
 	// Update is called once per frame
@@ -166,12 +192,22 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 			
-			numberCollectedBalls = 0;
+			for( int i = 0; i < numObjectsCollected.Length; i++ )
+				numObjectsCollected[i] = 0;
 			gameStarted = false;
 			checkForFinish = false;
 			finishTimer = 0.0f;
 			
-			ballsCollectedText.text = "Balls Collected: "+numberCollectedBalls.ToString();
+			GameObject textObject;
+			GUIText text;
+			
+			// Set up the Drop Object Text
+			for( int i = 0; i < dropObjectTextNames.Length; i++ )
+			{
+				textObject = GameObject.Find( dropObjectTextNames[i] );
+				text = textObject.GetComponent<GUIText>();
+				text.text = "0/"+numObjectsRequired[i].ToString();
+			}
 			
 			StartLevel();
 		}
