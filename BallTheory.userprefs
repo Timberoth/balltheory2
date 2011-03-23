@@ -4,13 +4,14 @@
     <Files>
       <File FileName="Assets\Scripts\GUI\GameplayGUI.cs" Line="13" Column="49" />
       <File FileName="Assets\Scripts\2D\Gizmos\Gizmo.cs" Line="210" Column="34" />
-      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="181" Column="7" />
+      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="203" Column="4" />
       <File FileName="Assets\Scripts\Input\Draggable.cs" Line="123" Column="64" />
       <File FileName="Assets\Scripts\2D\Ball\BallStart.cs" Line="8" Column="31" />
       <File FileName="Assets\Scripts\2D\Gizmos\RepeaterOutput.cs" Line="73" Column="51" />
       <File FileName="Assets\Scripts\2D\Gizmos\Repeater.cs" Line="104" Column="4" />
       <File FileName="Assets\Scripts\2D\Ball\Ball.cs" Line="33" Column="4" />
       <File FileName="Assets\Scripts\2D\Gizmos\Adder.cs" Line="11" Column="1" />
+      <File FileName="Assets\Scripts\2D\Ball\BallFinish.cs" Line="35" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
