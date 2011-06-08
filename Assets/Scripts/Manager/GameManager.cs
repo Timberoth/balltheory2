@@ -108,8 +108,11 @@ public class GameManager : MonoBehaviour {
 		for( int i = 0; i < dropObjectTextNames.Length; i++ )
 		{
 			textObject = GameObject.Find( dropObjectTextNames[i] );
-			text = textObject.GetComponent<GUIText>();
-			text.text = "0/"+numObjectsRequired[i].ToString();
+			if( textObject != null )
+			{
+				text = textObject.GetComponent<GUIText>();
+				text.text = "0/"+numObjectsRequired[i].ToString();
+			}
 		}
 	}
 	
@@ -147,7 +150,19 @@ public class GameManager : MonoBehaviour {
 		// Go to the score screen, from there go to Next Level or Level Select.
 		
 		
-		// Load up the next level.		
+		// HACK TEST Load up the next level.
+		print(Application.loadedLevelName);
+		string levelName = Application.loadedLevelName;
+		string levelNumber = levelName.TrimStart("Level".ToCharArray());
+		
+		int level;
+		int.TryParse(levelNumber, out level);
+		level++;
+		
+		// Check for final level to do something different.
+		
+		string nextLevel = "Level"+level.ToString();
+		Application.LoadLevel( nextLevel );
 	}
 	
 	
@@ -205,8 +220,11 @@ public class GameManager : MonoBehaviour {
 			for( int i = 0; i < dropObjectTextNames.Length; i++ )
 			{
 				textObject = GameObject.Find( dropObjectTextNames[i] );
-				text = textObject.GetComponent<GUIText>();
-				text.text = "0/"+numObjectsRequired[i].ToString();
+				if( textObject != null )
+				{
+					text = textObject.GetComponent<GUIText>();
+					text.text = "0/"+numObjectsRequired[i].ToString();
+				}
 			}
 			
 			StartLevel();
@@ -288,10 +306,14 @@ public class GameManager : MonoBehaviour {
 		// Check which gizmo is being dragged and delete it.
 		if( dragObject != null )
 		{
-			print("Delete Gizmo: "+dragObject);
-			Destroy( dragObject );
+			// Don't delete any spawn points or the level could be un-winnable.
+			if( !( dragObject.name.ToLower().Contains("spawn") ) )
+			{
+				print("Delete Gizmo: "+dragObject);
+				Destroy( dragObject );
 			
-			dragObject = null;
+				dragObject = null;	
+			}
 		}				
 	}
 }
