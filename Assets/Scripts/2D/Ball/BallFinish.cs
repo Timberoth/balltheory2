@@ -14,26 +14,38 @@ public class BallFinish : MonoBehaviour {
 		
 	void OnCollisionEnter ( Collision other )
 	{					
-		StartCoroutine(DestroyBall( other ));
+		if( other == null || other.gameObject == null )
+		{
+			return;
+		}
+		else
+		{
+			StartCoroutine(DestroyBall( other ));
+		}
 	}
 	
 	IEnumerator DestroyBall( Collision other )
     {
+		if( other == null || other.gameObject == null )
+			yield return new WaitForSeconds(0.0f);
+		
 		if( other.gameObject.tag == "Ball" )
-		{		
-			// Increase ball count
-			gameManager.BallCollected( other.gameObject );
-			
+		{					
 			// Play particles
 			
 			// Play sounds
-			
-			// Wait for 1 second
-	        yield return new WaitForSeconds(0.25f);
+						
+	        yield return new WaitForSeconds(0.0f);
 			
 			// Kill the ball after a half a second
-			if( other.gameObject != null )
+			if( other != null && other.gameObject != null )
+			{
 				other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);		
-		}
+				
+				// Increase ball count
+				gameManager.BallCollected( other.gameObject );
+			
+			}
+		}		
     }
 }

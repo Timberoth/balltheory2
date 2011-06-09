@@ -101,6 +101,12 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{		
+		if( PlayerPrefs.HasKey("levelnumber") )
+		{		
+			int level = PlayerPrefs.GetInt("levelnumber");		
+			print("Current Level "+ level );
+		}
+		
 		GUIText text;
 		GameObject textObject;
 		
@@ -136,9 +142,7 @@ public class GameManager : MonoBehaviour {
 	
 	
 	private IEnumerator FinishLevel()
-	{
-		print("Finish Level");
-		
+	{		
 		// Play particle effect
 		
 		// Play sound effect
@@ -150,8 +154,7 @@ public class GameManager : MonoBehaviour {
 		// Go to the score screen, from there go to Next Level or Level Select.
 		
 		
-		// HACK TEST Load up the next level.
-		print(Application.loadedLevelName);
+		// HACK TEST Load up the next level.		
 		string levelName = Application.loadedLevelName;
 		string levelNumber = levelName.TrimStart("Level".ToCharArray());
 		
@@ -162,6 +165,9 @@ public class GameManager : MonoBehaviour {
 		// Check for final level to do something different.
 		
 		string nextLevel = "Level"+level.ToString();
+		
+		PlayerPrefs.SetInt("levelnumber", level );
+		
 		Application.LoadLevel( nextLevel );
 	}
 	
