@@ -201,11 +201,11 @@ public class Gizmo : MonoBehaviour {
 		
 		
 		// Wait for a little bit
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
 		
 		// Calculate where the balls will be spit out from		
 		ballSpawnPoint = gameObject.transform.position;					
-		ballSpawnPoint.y = ballSpawnPoint.y - 0.5f*ballSize.y - 0.5f*gizmoSize.y - 0.2f;			
+		ballSpawnPoint.y = ballSpawnPoint.y - 0.5f*ballSize.y - 0.5f*gizmoSize.y - 0.5f;			
 						
 		int ballsAtStart = ballCounter;			
 		
@@ -223,7 +223,7 @@ public class Gizmo : MonoBehaviour {
 			// Play particle
 			
 			// Wait for little bit before spitting out the next ball.
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(0.3f);
 		}
 				
 		// Reset the gizmo for the next iteration
