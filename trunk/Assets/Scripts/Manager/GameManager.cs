@@ -215,6 +215,15 @@ public class GameManager : MonoBehaviour {
 			
 			for( int i = 0; i < numObjectsCollected.Length; i++ )
 				numObjectsCollected[i] = 0;
+			
+			
+			// Reset spawn points
+			foreach( string name in spawnpointNames )
+			{
+				ResetStartingObject( name );
+			}
+			
+			
 			gameStarted = false;
 			checkForFinish = false;
 			finishTimer = 0.0f;
@@ -252,7 +261,7 @@ public class GameManager : MonoBehaviour {
 				for( int i = 0; i < spawnpoint.startingBalls; i++ )
 				{
 					// Wait for a little before ball spawns
-					yield return new WaitForSeconds(0.5f);
+					yield return new WaitForSeconds(0.3f);
 					
 					// Create the new drop object					
 					GameObject dropObject = Instantiate( spawnpoint.ballObject, spawnpointObject.transform.position, Quaternion.identity ) as GameObject;
@@ -260,6 +269,8 @@ public class GameManager : MonoBehaviour {
 					// Make sure that the new Drop object has a reference to the object it is like Beam, Wheel, Microchip, etc.
 					Ball ballComponent = dropObject.GetComponent<Ball>();
 					ballComponent.dropObject = spawnpoint.ballObject;
+					
+					spawnpoint.DecrementCounter();					
 				}
 			}
 			else
@@ -268,6 +279,22 @@ public class GameManager : MonoBehaviour {
 				print("[ERROR] Ball Object has not been set in the BallStart object.");
 			}				
 		}			
+	}
+	
+	private void ResetStartingObject( string name )
+	{
+		// Grab the DropObject spawn point.
+		GameObject spawnpointObject = GameObject.Find(name);
+		
+		if( spawnpointObject != null )
+		{
+			BallStart spawnpoint = spawnpointObject.GetComponent<BallStart>();
+		
+			if( spawnpoint != null )
+			{							
+				spawnpoint.ResetSpawn();
+			}
+		}
 	}
 	
 	
