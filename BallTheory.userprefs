@@ -3,15 +3,15 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\2D\Gizmos\Gizmo.cs">
     <Files>
       <File FileName="Assets\Scripts\GUI\GameplayGUI.cs" Line="13" Column="49" />
-      <File FileName="Assets\Scripts\2D\Gizmos\Gizmo.cs" Line="226" Column="39" />
-      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="318" Column="40" />
+      <File FileName="Assets\Scripts\2D\Gizmos\Gizmo.cs" Line="32" Column="43" />
+      <File FileName="Assets\Scripts\Manager\GameManager.cs" Line="264" Column="41" />
       <File FileName="Assets\Scripts\Input\Draggable.cs" Line="123" Column="64" />
-      <File FileName="Assets\Scripts\2D\Ball\BallStart.cs" Line="8" Column="31" />
+      <File FileName="Assets\Scripts\2D\Ball\BallStart.cs" Line="13" Column="31" />
       <File FileName="Assets\Scripts\2D\Gizmos\RepeaterOutput.cs" Line="73" Column="51" />
       <File FileName="Assets\Scripts\2D\Gizmos\Repeater.cs" Line="104" Column="4" />
       <File FileName="Assets\Scripts\2D\Ball\Ball.cs" Line="22" Column="4" />
       <File FileName="Assets\Scripts\2D\Gizmos\Adder.cs" Line="11" Column="1" />
-      <File FileName="Assets\Scripts\2D\Ball\BallFinish.cs" Line="38" Column="48" />
+      <File FileName="Assets\Scripts\2D\Ball\BallFinish.cs" Line="13" Column="3" />
       <File FileName="Assets\Scripts\2D\DeathTrigger.cs" Line="8" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>

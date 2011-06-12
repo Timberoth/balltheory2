@@ -5,6 +5,8 @@ using System.Collections;
 
 public class Gizmo : MonoBehaviour {
 			
+	public const float BALL_SPAWN_RATE = 0.3f;
+	
 	// Privates
 	
 	// Keep a reference to the ball objects that will be used as input and output
@@ -27,7 +29,7 @@ public class Gizmo : MonoBehaviour {
 	
 	// This is the amount of time to wait before automatically starting the BeginProcessing function.
 	// This can be set through the Editor per Gizmo.
-	protected float autoProcessingTimer = 1.0f;
+	protected float autoProcessingTimer = 0.5f;
 	
 	// This is the actual timer.
 	protected float processingTimer = 0.0f;
@@ -223,7 +225,7 @@ public class Gizmo : MonoBehaviour {
 			// Play particle
 			
 			// Wait for little bit before spitting out the next ball.
-			yield return new WaitForSeconds(0.3f);
+			yield return new WaitForSeconds(BALL_SPAWN_RATE);
 		}
 				
 		// Reset the gizmo for the next iteration
