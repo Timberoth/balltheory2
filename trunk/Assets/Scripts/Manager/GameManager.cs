@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject repeaterOutputObject = null;
 	public GameObject storageObject = null;
 	public GameObject subtractorObject = null;	
+	public GameObject slopeObject = null;
 	
 	
 	// Keep a reference to the current object being dragged.
@@ -330,7 +331,12 @@ public class GameManager : MonoBehaviour {
 		case "Subtractor":
 			Instantiate( subtractorObject, position, Quaternion.identity);
 			break;
-			
+
+		case "Slope":
+			//Instantiate( slopeObject, position, Quaternion.identity);
+			Instantiate( slopeObject, position, slopeObject.gameObject.transform.rotation );
+			//slopeObject.gameObject.transform.Rotate( 0.0f, 0.0f, 1.0f, Space.Self );
+			break;
 		}
 	}	
 	
