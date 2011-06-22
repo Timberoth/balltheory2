@@ -65,6 +65,7 @@
      <Compile Include="Assets\Scripts\2D\Gizmos\Multiplier.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Repeater.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\RepeaterOutput.cs" />
+     <Compile Include="Assets\Scripts\2D\Gizmos\Slope.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Storage.cs" />
      <Compile Include="Assets\Scripts\2D\Gizmos\Subtractor.cs" />
      <Compile Include="Assets\Scripts\2D\DeathTrigger.cs" />
