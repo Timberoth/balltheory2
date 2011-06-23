@@ -38,6 +38,25 @@ public class GameManager : MonoBehaviour {
 	public GameObject subtractorObject = null;	
 	public GameObject slopeObject = null;
 	
+	// Maximum number of gizmos, 0 means no limit
+	private static int maxGizmos = 1000;
+	public int maxAdders = maxGizmos;
+	public int maxSubtractors = maxGizmos;
+	public int maxDoublers = maxGizmos;
+	public int maxHalfers = maxGizmos;
+	public int maxRepeaters = maxGizmos;
+	public int maxStorages = maxGizmos;
+	public int maxSlopes = maxGizmos;
+	
+	// Number of each gizmo
+	private int numAdders = 0;
+	private int numSubtractors = 0;
+	private int numDoublers = 0;
+	private int numHalfers = 0;
+	private int numRepeaters = 0;
+	private int numStorages = 0;
+	private int numSlopes = 0;
+	
 	
 	// Keep a reference to the current object being dragged.
 	public GameObject dragObject = null;
@@ -104,8 +123,8 @@ public class GameManager : MonoBehaviour {
 	{		
 		if( PlayerPrefs.HasKey("levelnumber") )
 		{		
-			int level = PlayerPrefs.GetInt("levelnumber");		
-			print("Current Level "+ level );
+			int level = PlayerPrefs.GetInt("levelnumber");
+			print("Starint Level: "+level);
 		}
 		
 		GUIText text;
@@ -312,33 +331,59 @@ public class GameManager : MonoBehaviour {
 		switch( data.gizmoName )
 		{
 		case "Adder":
-			Instantiate( adderObject, position, Quaternion.identity);
+			if( numAdders < maxAdders )
+			{
+				Instantiate( adderObject, position, Quaternion.identity);
+				numAdders++;
+			}
 			break;
 			
 		case "Doubler":
+			if( numDoublers < maxDoublers )
+			{
 			Instantiate( doublerObject, position, Quaternion.identity);
+			numDoublers++;
+			}
 			break;
 			
 		case "Halfer":
-			Instantiate( halferObject, position, Quaternion.identity);
+			if( numHalfers < maxHalfers )
+			{
+				Instantiate( halferObject, position, Quaternion.identity);
+				numHalfers++;
+			}
 			break;
 			
 		case "Repeater":
-			Instantiate( repeaterObject, position, Quaternion.identity);
+			if( numRepeaters < maxRepeaters )
+			{
+				Instantiate( repeaterObject, position, Quaternion.identity);
+				numRepeaters++;
+			}
 			break;
 			
 		case "Storage":
-			Instantiate( storageObject, position, Quaternion.identity);
+			if( numStorages < maxStorages )
+			{
+				Instantiate( storageObject, position, Quaternion.identity);
+				numStorages++;
+			}
 			break;
 			
 		case "Subtractor":
-			Instantiate( subtractorObject, position, Quaternion.identity);
+			if( numSubtractors < maxSubtractors )
+			{
+				Instantiate( subtractorObject, position, Quaternion.identity);
+				numSubtractors++;
+			}
 			break;
 
-		case "Slope":
-			//Instantiate( slopeObject, position, Quaternion.identity);
-			Instantiate( slopeObject, position, slopeObject.gameObject.transform.rotation );
-			//slopeObject.gameObject.transform.Rotate( 0.0f, 0.0f, 1.0f, Space.Self );
+		case "Slope":			
+			if( numSlopes < maxSlopes )
+			{
+				Instantiate( slopeObject, position, slopeObject.gameObject.transform.rotation );
+				numSlopes++;
+			}
 			break;
 		}
 	}	
@@ -350,10 +395,43 @@ public class GameManager : MonoBehaviour {
 		{
 			// Don't delete any spawn points or the level could be un-winnable.
 			if( !( dragObject.name.ToLower().Contains("spawn") ) )
-			{
-				print("Delete Gizmo: "+dragObject);
-				Destroy( dragObject );
+			{				
+				string clone = "(Clone)";
+				string gizmoName = dragObject.name.TrimEnd(clone.ToCharArray());
+				
+				// Update counter
+				switch( gizmoName )
+				{
+				case "Adder":
+					numAdders = System.Math.Max( 0, --numAdders );				
+					break;
+					
+				case "Doubler":
+					numDoublers = System.Math.Max( 0, --numDoublers );
+					break;
+					
+				case "Halfer":
+					numHalfers = System.Math.Max( 0, --numHalfers );
+					break;
+					
+				case "Repeater":
+					numRepeaters = System.Math.Max( 0, --numRepeaters );
+					break;
+					
+				case "Storage":
+					numStorages = System.Math.Max( 0, --numStorages );
+					break;
+					
+				case "Subtractor":
+					numStorages = System.Math.Max( 0, --numSubtractors );
+					break;
+		
+				case "Slope":
+					numSlopes = System.Math.Max( 0, --numSlopes );
+					break;
+				}
 			
+				Destroy( dragObject );							
 				dragObject = null;	
 			}
 		}				
