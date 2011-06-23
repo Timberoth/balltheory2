@@ -118,9 +118,41 @@ public class Draggable : MonoBehaviour {
 			Camera mainCamera = UnityEngine.Camera.mainCamera;
 			Vector3 worldPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 			
-			// Round the numbers to use Snap Positioning.
-			worldPosition.x = (float)System.Math.Round(worldPosition.x);
-			worldPosition.y = (float)System.Math.Round(worldPosition.y);
+			// Round the numbers to use Snap Positioning.				
+			worldPosition.x = worldPosition.x + mouseOffset.x;
+			worldPosition.y = worldPosition.y + mouseOffset.y;
+			
+			// Round to the nearest 0.5
+			float floorX = (float)System.Math.Floor( worldPosition.x );
+			float decimalX = worldPosition.x - floorX;
+			if( decimalX < 0.25 )
+			{
+				worldPosition.x = floorX;
+			}
+			else if( decimalX > 0.75 )
+			{
+				worldPosition.x = floorX+1.0f;
+			}
+			else
+			{
+				worldPosition.x = floorX+0.5f;
+			}
+			
+			float floorY = (float)System.Math.Floor( worldPosition.y );
+			float decimalY = worldPosition.y - floorY;
+			if( decimalY < 0.25 )
+			{
+				worldPosition.y = floorY;
+			}
+			else if( decimalY > 0.75 )
+			{
+				worldPosition.y = floorY+1.0f;
+			}
+			else
+			{
+				worldPosition.y = floorY+0.5f;
+			}
+			
 			worldPosition.z = 0.0f;
 			transform.position = worldPosition;
 			
