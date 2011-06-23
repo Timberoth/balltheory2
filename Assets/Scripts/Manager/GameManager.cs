@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviour {
 			// Go through all the possible drop object spawn points and begin spawning.
 			foreach( string name in spawnpointNames )
 			{
-				StartCoroutine( SpawnStartingObjects( name ) );
+				StartCoroutine( SpawnStartingObjects( name ) );				
 			}
 		}
 		
@@ -196,6 +196,9 @@ public class GameManager : MonoBehaviour {
 	{		
 		if( gameStarted )
 		{
+			// Stop all coroutintes			
+			StopAllCoroutines();
+			
 			// Destroy all the existing balls
 			GameObject[] balls = GameObject.FindGameObjectsWithTag("Ball");
 			foreach( GameObject ball in balls )
