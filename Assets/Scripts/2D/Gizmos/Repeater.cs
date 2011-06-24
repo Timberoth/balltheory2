@@ -6,8 +6,12 @@ public class Repeater : Gizmo {
 	// Keep a reference to the ModifierBox
 	public ModifierBox modifierBox;
 	
-	// Keep a reference to the RepeaterOutput object created.
+	// Keep a reference to the RepeaterOutput component and object created.
 	private RepeaterOutput repeaterOutput;
+	public GameObject repeaterOutputObject;
+	
+	// It gets a little weird here since both Repeater and RepeaterOutput have references to each other
+	// so if one gets destroyed the other one is destroyed too.
 	
 	// Track the loop count to restore it after the iteration is done.
 	private int loopCount = 0;
@@ -28,8 +32,9 @@ public class Repeater : Gizmo {
 		
 		Vector3 spawnPoint = gameObject.transform.position;
 		spawnPoint.y -= 1.5f;		
+		
 		// Spawn the RepeaterOutput object and place it next to the Repeater.			
-		GameObject repeaterOutputObject = (GameObject)Instantiate( gameManager.repeaterOutputObject, spawnPoint, Quaternion.identity );
+		repeaterOutputObject = (GameObject)Instantiate( gameManager.repeaterOutputObject, spawnPoint, Quaternion.identity );		
 		
 		// Grab the RepeaterOutput component.
 		repeaterOutput = repeaterOutputObject.GetComponent<RepeaterOutput>();
@@ -37,6 +42,9 @@ public class Repeater : Gizmo {
 		{
 			print("[ERROR] A Repeater was unable to get the RepeaterOutput reference");	
 		}
+		
+		// Give the RepeaterOutput a reference to this object so it can delete it if necessary.
+		repeaterOutput.repeaterObject = this.gameObject;
 		
 		
 		// Get the modifier box reference
@@ -46,6 +54,18 @@ public class Repeater : Gizmo {
 			print("[ERROR] This Multiplier does not have an child ModifierBox.");	
 		}			
 	}			
+	
+	public void OnDestroy()
+	{		
+		if( repeaterOutputObject != null )
+		{
+			// This needs to be done or we'll get into a nasty loop.
+			repeaterOutput.repeaterObject = null;
+			
+			DestroyObject( repeaterOutputObject );
+			repeaterOutputObject = null;
+		}
+	}
 	
 	// Need specialized processing function.
 	public override IEnumerator BeginProcessing()

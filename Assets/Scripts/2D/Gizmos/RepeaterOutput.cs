@@ -3,6 +3,22 @@ using System.Collections;
 
 public class RepeaterOutput : Gizmo 
 {	
+	public GameObject repeaterObject = null;
+	
+	public void OnDestroy()
+	{
+		if( repeaterObject != null )
+		{			
+			Repeater repeaterComponent = repeaterObject.GetComponent<Repeater>();
+			// This needs to be done or we'll get into a nasty destroy loop.
+			repeaterComponent.repeaterOutputObject = null;
+			
+			// Destroy the repeater
+			DestroyObject( repeaterObject );
+			repeaterObject = null;			
+		}		
+	}
+	
 	// Add this number of balls to the RepeaterOutput
 	public void AddBalls( int num )
 	{
