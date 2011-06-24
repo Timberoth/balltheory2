@@ -415,6 +415,10 @@ public class GameManager : MonoBehaviour {
 					break;
 					
 				case "Repeater":
+					numRepeaters = System.Math.Max( 0, --numRepeaters );								
+					break;
+					
+				case "RepeaterOutput":
 					numRepeaters = System.Math.Max( 0, --numRepeaters );
 					break;
 					
