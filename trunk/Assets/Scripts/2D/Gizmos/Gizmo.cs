@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Gizmo : MonoBehaviour {
 			
-	public const float BALL_SPAWN_RATE = 0.3f;
+	public static float BALL_SPAWN_RATE = 0.3f;
 	
 	// Privates
 	
