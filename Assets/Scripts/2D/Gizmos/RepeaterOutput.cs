@@ -75,7 +75,7 @@ public class RepeaterOutput : Gizmo
 								
 		
 		// Wait for a little bit
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(Gizmo.BALL_SPAWN_RATE);
 		
 		
 		ballSpawnPoint = gameObject.transform.position;					
@@ -98,7 +98,7 @@ public class RepeaterOutput : Gizmo
 			// Play particle
 			
 			// Wait for little bit before spitting out the next ball.
-			yield return new WaitForSeconds(0.5f);
+			yield return new WaitForSeconds(Gizmo.BALL_SPAWN_RATE);
 		}
 				
 		ballCounter = 0;
