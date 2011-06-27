@@ -6,6 +6,8 @@ public class BallFinish : MonoBehaviour {
 	// Keep a reference to the GameManager
 	GameManager gameManager;
 	
+	public GameObject finishObject = null;
+	
 	void Start()
 	{
 		GameObject gameManagerObject = GameObject.Find("GameManager");
@@ -42,9 +44,11 @@ public class BallFinish : MonoBehaviour {
 			{
 				other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);		
 				
-				// Increase ball count
-				gameManager.BallCollected( other.gameObject );
-			
+				// Only count the object is its colliding with the proper finish object
+				if( finishObject != null && other.gameObject.name.Contains(finishObject.name) )
+				{
+					gameManager.BallCollected( other.gameObject );	
+				}				
 			}
 		}		
     }
