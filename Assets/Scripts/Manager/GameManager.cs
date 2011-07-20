@@ -120,15 +120,21 @@ public class GameManager : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () 
-	{		
+	{	
+		GUIText text;
+		GameObject textObject;		
+		
 		if( PlayerPrefs.HasKey("levelnumber") )
 		{		
 			int level = PlayerPrefs.GetInt("levelnumber");
-			print("Starint Level: "+level);
+			print("Starting Level: "+level);
+			
+			// Level and score text
+			textObject = GameObject.Find( "Level_Text" );
+			text = textObject.GetComponent<GUIText>();
+			text.text = "Level "+level.ToString();		
 		}
 		
-		GUIText text;
-		GameObject textObject;
 		
 		// Set up the Drop Object Text
 		for( int i = 0; i < dropObjectTextNames.Length; i++ )
