@@ -1,6 +1,6 @@
 //Maya ASCII 2010 scene
-//Name: WheelFinish.ma
-//Last modified: Wed, Jul 20, 2011 11:00:17 PM
+//Name: WheelStart.ma
+//Last modified: Wed, Jul 20, 2011 11:02:56 PM
 //Codeset: 1252
 requires maya "2010";
 currentUnit -l centimeter -a degree -t film;
@@ -62,8 +62,8 @@ createNode camera -s -n "sideShape" -p "side";
 	setAttr ".man" -type "string" "side_mask";
 	setAttr ".hc" -type "string" "viewSet -s %camera";
 	setAttr ".o" yes;
-createNode transform -n "pCylinder1";
-createNode mesh -n "pCylinderShape1" -p "pCylinder1";
+createNode transform -n "pSphere1";
+createNode mesh -n "pSphereShape1" -p "pSphere1";
 	setAttr -k off ".v";
 	setAttr ".vir" yes;
 	setAttr ".vif" yes;
@@ -136,11 +136,8 @@ createNode script -n "uiConfigurationScriptNode";
 createNode script -n "sceneConfigurationScriptNode";
 	setAttr ".b" -type "string" "playbackOptions -min 1 -max 24 -ast 1 -aet 48 ";
 	setAttr ".st" 6;
-createNode polyCylinder -n "polyCylinder1";
-	setAttr ".r" 1.5;
-	setAttr ".h" 0.5;
-	setAttr ".sc" 1;
-	setAttr ".cuv" 3;
+createNode polySphere -n "polySphere1";
+	setAttr ".r" 0.75;
 select -ne :time1;
 	setAttr ".o" 1;
 select -ne :renderPartition;
@@ -163,9 +160,7 @@ select -ne :hardwareRenderGlobals;
 select -ne :defaultHardwareRenderGlobals;
 	setAttr ".fn" -type "string" "im";
 	setAttr ".res" -type "string" "ntsc_4d 646 485 1.333";
-select -ne :ikSystem;
-	setAttr -s 4 ".sol";
-connectAttr "polyCylinder1.out" "pCylinderShape1.i";
+connectAttr "polySphere1.out" "pSphereShape1.i";
 connectAttr ":defaultLightSet.msg" "lightLinker1.lnk[0].llnk";
 connectAttr ":initialShadingGroup.msg" "lightLinker1.lnk[0].olnk";
 connectAttr ":defaultLightSet.msg" "lightLinker1.lnk[1].llnk";
@@ -177,5 +172,5 @@ connectAttr ":initialParticleSE.msg" "lightLinker1.slnk[1].solk";
 connectAttr "layerManager.dli[0]" "defaultLayer.id";
 connectAttr "renderLayerManager.rlmi[0]" "defaultRenderLayer.rlid";
 connectAttr "lightLinker1.msg" ":lightList1.ln" -na;
-connectAttr "pCylinderShape1.iog" ":initialShadingGroup.dsm" -na;
-// End of WheelFinish.ma
+connectAttr "pSphereShape1.iog" ":initialShadingGroup.dsm" -na;
+// End of WheelStart.ma
