@@ -42,11 +42,15 @@ public class BallFinish : MonoBehaviour {
 			// Kill the ball after a half a second
 			if( other != null && other.gameObject != null )
 			{
-				other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);		
+				other.gameObject.SendMessage ("OnDeath", SendMessageOptions.DontRequireReceiver);
+				
+				print( finishObject.name );
+				print( other.gameObject.name );
 				
 				// Only count the object is its colliding with the proper finish object
 				if( finishObject != null && other.gameObject.name.Contains(finishObject.name) )
 				{
+					print("Ball Collected");
 					gameManager.BallCollected( other.gameObject );	
 				}				
 			}
